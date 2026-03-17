@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     stages {
 
@@ -12,12 +17,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t tejasri06/2023bcs0166 .'
-            }
-        }
-
-        stage('Tag Docker Image') {
-            steps {
-                sh 'docker tag tejasri06/2023bcs0166 tejasri06/2023bcs0166'
             }
         }
 
