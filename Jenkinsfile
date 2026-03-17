@@ -1,23 +1,23 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = '2023bcs0166'
-        DOCKER_HUB_USER = 'tejasri06'
-        DOCKER_CREDS_ID = 'dockerhub-credentials'
-    }
-
     stages {
 
-        stage('Checkout Code') {
+        stage('Clone Repository') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/tejasri-lella/cicd-app'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t tejasri06/2023bcs0166 .'
+            }
+        }
+
+        stage('Tag Docker Image') {
+            steps {
+                sh 'docker tag tejasri06/2023bcs0166 tejasri06/2023bcs0166'
             }
         }
 
